@@ -2,11 +2,11 @@
 {
     public class SavedExchangeRate
     {
-        int Id { get; set; }
-        string Currency { get; set; }
-        string Comment { get; set; }
-        double ExchangeRate { get; set; }
-        DateTime CreatedAt { get; set; }
-        DateTime UpdatedAt { get; set; }
+        public int Id { get; set; }
+        public string Currency { get; set; }
+        public string Comment { get; set; }
+        public double ExchangeRate { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

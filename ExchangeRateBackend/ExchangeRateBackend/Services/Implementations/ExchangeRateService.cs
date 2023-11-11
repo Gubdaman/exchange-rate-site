@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ExchangeRateBackend.Database;
 using ExchangeRateBackend.Models.Database;
+using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Models.Service;
 using ExchangeRateBackend.Services.Interfaces;
 
@@ -17,43 +18,6 @@ namespace ExchangeRateBackend.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task SaveExchangeRateAsync()
-        {
-            using (var db = new DatabaseContext())
-            {
-                db.Database.EnsureCreated();
-
-                var model = db.SavedExchangeRates.Add(new SavedExchangeRateModel()
-                {
-                    CreatedAt = DateTime.UtcNow,
-                    ExchangeRate = 1.1d,
-                    Comment = "",
-                    Currency = "USD",
-                    UpdatedAt = DateTime.UtcNow,
-                });
-                db.SaveChanges();
-            }
-            
-        }
-
-        public async Task GetSavedExchangeRatesAsync()
-        {
-            using (var db = new DatabaseContext())
-            {
-                var models = db.SavedExchangeRates.ToList();
-            }
-        }
-
-        public async Task DeleteSavedExchangeRateAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task ExchangeCurrenciesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<ExchangeRate>> GetCurrentExchangeRatesAsync()
         {
             var currentExchangeRates = await _MNBDataService.GetCurrentExchangeRatesAsync();
@@ -61,14 +25,72 @@ namespace ExchangeRateBackend.Services.Implementations
             return exchangeRates;
         }
 
-        public async Task GetSavedExchangeRateByIdAsync(int id)
+        public async Task<List<SavedExchangeRate>> GetSavedExchangeRatesAsync()
         {
-            throw new NotImplementedException();
+            using (var db = new DatabaseContext())
+            {
+                var models = db.SavedExchangeRates.ToList();
+                return _mapper.Map<List<SavedExchangeRate>>(models);
+            }
         }
 
-        public async Task UpdateSavedExchangeRate()
+        public async Task<SavedExchangeRate> GetSavedExchangeRateByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new DatabaseContext())
+            {
+                var model = db.SavedExchangeRates.FirstOrDefault(t => t.Id == id);
+                return _mapper.Map<SavedExchangeRate>(model);
+            }
+        }
+
+        public async Task<double> ExchangeCurrenciesAsync(string to, double amount)
+        {
+            var exchangeRates = await GetCurrentExchangeRatesAsync();
+            var currencyTo = exchangeRates.FirstOrDefault(t => t.Currency.Equals(to));
+            var convertedValue = amount / currencyTo.Value;
+            return convertedValue;
+        }
+
+        public async Task<SavedExchangeRate> SaveExchangeRateAsync(SaveExchangeRateRequest data)
+        {
+            using (var db = new DatabaseContext())
+            {
+                db.Database.EnsureCreated();
+                var newData = new SavedExchangeRateModel()
+                {
+                    CreatedAt = DateTime.UtcNow,
+                    ExchangeRate = data.ExchangeRate,
+                    Comment = data.Comment,
+                    Currency = data.Currency,
+                    UpdatedAt = DateTime.UtcNow,
+                };
+                var model = db.SavedExchangeRates.Add(newData);
+                await db.SaveChangesAsync();
+                return _mapper.Map<SavedExchangeRate>(newData);
+            }
+        }
+
+        public async Task<SavedExchangeRate> UpdateSavedExchangeRate(UpdateExchangeRateRequest data)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var model = db.SavedExchangeRates.FirstOrDefault(t => t.Id == data.Id);
+                model.UpdatedAt = DateTime.UtcNow;
+                model.Comment = data.Comment;
+                await db.SaveChangesAsync();
+                return _mapper.Map<SavedExchangeRate>(model);
+            }
+        }
+
+        public async Task<bool> DeleteSavedExchangeRateAsync(int id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var model = db.SavedExchangeRates.FirstOrDefault(t => t.Id == id);
+                var asd = db.SavedExchangeRates.Remove(model);
+                await db.SaveChangesAsync();
+                return true;
+            }
         }
     }
 }

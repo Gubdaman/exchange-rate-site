@@ -1,5 +1,5 @@
 using AutoMapper;
-using ExchangeRateBackend.Models.MNB;
+using Azure;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +11,12 @@ namespace ExchangeRateBackend.Controllers
     public class ExchangeRateController : ControllerBase
     {
         private readonly ILogger<ExchangeRateController> _logger;
-        private readonly IMNBDataService _MNBDataService;
         private readonly IExchangeRateService _exchangeRateService;
         private readonly IMapper _mapper;
 
-        public ExchangeRateController(ILogger<ExchangeRateController> logger, IMNBDataService MNBDataService, IExchangeRateService exchangeRateService, IMapper mapper)
+        public ExchangeRateController(ILogger<ExchangeRateController> logger, IExchangeRateService exchangeRateService, IMapper mapper)
         {
             _logger = logger;
-            _MNBDataService = MNBDataService;
             _exchangeRateService = exchangeRateService;
             _mapper = mapper;
         }
@@ -27,78 +25,59 @@ namespace ExchangeRateBackend.Controllers
         [Route("/current-exchange-rates")]
         public async Task<GetCurrentExchangeRatesResponse> GetCurrenciesAsync()
         {
-            var res = await _exchangeRateService.GetCurrentExchangeRatesAsync();
+            var rates = await _exchangeRateService.GetCurrentExchangeRatesAsync();
             return new GetCurrentExchangeRatesResponse()
             {
-                ExchangeRates = _mapper.Map<List<ExchangeRateResponse>>(res)
+                ExchangeRates = _mapper.Map<List<ExchangeRateResponse>>(rates)
             };
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("/save-exchange-rate")]
-        public async Task<string> SaveExchangeRate()
+        public async Task<SaveExchangeRateResponse> SaveExchangeRate(SaveExchangeRateRequest request)
         {
-            await _exchangeRateService.SaveExchangeRateAsync();
-            return "test";
+            var response = await _exchangeRateService.SaveExchangeRateAsync(request);
+            return _mapper.Map<SaveExchangeRateResponse>(response);
+        }
+
+        [HttpPost]
+        [Route("/update-exchange-rate")]
+        public async Task<SaveExchangeRateResponse> UpdateSavedExchangeRate(UpdateExchangeRateRequest request)
+        {
+            var response = await _exchangeRateService.UpdateSavedExchangeRate(request);
+            return _mapper.Map<SaveExchangeRateResponse>(response);
         }
 
         [HttpGet]
         [Route("/saved")]
-        public async Task<string> GetSavedAsync()
+        public async Task<List<SaveExchangeRateResponse>> GetSavedAsync()
         {
-            await _exchangeRateService.GetSavedExchangeRatesAsync();
-            return "test";
+            var response = await _exchangeRateService.GetSavedExchangeRatesAsync();
+            return _mapper.Map<List<SaveExchangeRateResponse>>(response);
         }
 
         [HttpGet]
         [Route("/saved/{id}")]
-        public async Task<GetCurrentExchangeRatesResponse> GetSavedByIdAsync(int id)
+        public async Task<SaveExchangeRateResponse> GetSavedByIdAsync(int id)
         {
-            await _exchangeRateService.GetSavedExchangeRateByIdAsync(id);
-            return new GetCurrentExchangeRatesResponse()
-            {
-                ExchangeRates = _mapper.Map<List<ExchangeRateResponse>>("asd")
-            };
+            var response = await _exchangeRateService.GetSavedExchangeRateByIdAsync(id);
+            return _mapper.Map<SaveExchangeRateResponse>(response);
         }
 
-        [HttpGet]
-        [Route("/t-currency")]
-        public async Task<MNBCurrencies> GetCurrenciesAsync2()
+        [HttpPost]
+        [Route("/exchange/")]
+        public async Task<double> ExchangeAsync(ExchangeRequest request)
         {
-            var res = await _MNBDataService.GetCurrenciesAsync();
-            return res;
+            var response = await _exchangeRateService.ExchangeCurrenciesAsync(request.To, request.Amount);
+            return response;
         }
 
-        [HttpGet]
-        [Route("/t-info")]
-        public async Task<MNBExchangeRatesQueryValues> GetInfoAsync2()
+        [HttpDelete]
+        [Route("/delete/")]
+        public async Task<bool> DeleteAsync(int id)
         {
-            var res = await _MNBDataService.GetInfoAsync();
-            return res;
-        }
-
-        [HttpGet]
-        [Route("/t-exchange-rates")]
-        public async Task<MNBExchangeRates> GetExchangeRatesAsync2()
-        {
-            var res = await _MNBDataService.GetExchangeRatesAsync();
-            return res;
-        }
-
-        [HttpGet]
-        [Route("/t-current-exchange-rates")]
-        public async Task<MNBCurrentExchangeRates> GetCurrentExchangeRatesAsync2()
-        {
-            var res = await _MNBDataService.GetCurrentExchangeRatesAsync();
-            return res;
-        }
-
-        [HttpGet]
-        [Route("/t-date-interval")]
-        public async Task<MNBStoredInterval> GetDateIntervalAsync2()
-        {
-            var res = await _MNBDataService.GetDateIntervalAsync();
-            return res;
+            var response = await _exchangeRateService.DeleteSavedExchangeRateAsync(id);
+            return response;
         }
     }
 }

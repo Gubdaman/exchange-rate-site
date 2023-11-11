@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExchangeRateBackend.Models.Database;
 using ExchangeRateBackend.Models.MNB;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Models.Service;
@@ -14,7 +15,9 @@ namespace ExchangeRateBackend.Mapper
             CreateMap<ExchangeRate, ExchangeRateResponse>().ReverseMap();
             CreateMap<Rate, ExchangeRate>()
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Curr))
-                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Unit * double.Parse(src.Text, serverCulture)));            
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => double.Parse(src.Text, serverCulture) / src.Unit));
+            CreateMap<SavedExchangeRate, SaveExchangeRateResponse>();
+            CreateMap<SavedExchangeRate, SavedExchangeRateModel>().ReverseMap();
         }
     }
 }
