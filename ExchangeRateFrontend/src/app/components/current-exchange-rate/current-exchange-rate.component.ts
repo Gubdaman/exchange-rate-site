@@ -50,6 +50,7 @@ export class CurrentExchangeRateComponent implements OnInit {
   openDialog(exchangeRateData: CurrentExchangeRate): void {
     const dialogRef = this.dialog.open(SaveExchangeModalComponent, {
       data: "",
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

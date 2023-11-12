@@ -29,7 +29,7 @@
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef> Törlés </th>
-    <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="openDeleteDialog(element)">Törlés</button> </td>
+    <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="openDeleteDialog(element)">Törlés</button> </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

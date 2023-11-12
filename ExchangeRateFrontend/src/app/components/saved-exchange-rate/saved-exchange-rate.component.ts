@@ -35,6 +35,7 @@ export class SavedExchangeRateComponent {
   openEditDialog(exchangeRateData: SavedExchangeRate): void {
     const dialogRef = this.dialog.open(EditExchangeRateModalComponent, {
       data: exchangeRateData,
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -48,6 +49,7 @@ export class SavedExchangeRateComponent {
   openDeleteDialog(exchangeRateData: SavedExchangeRate): void {
     const dialogRef = this.dialog.open(DeleteExchangeRateModalComponent, {
       data: true,
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

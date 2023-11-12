@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { CurrencyExchangeRequest } from '../../interfaces/currency-exchange-request';
 import { ExchangeRateService } from '../../services/exchange-rate.service';
 
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';

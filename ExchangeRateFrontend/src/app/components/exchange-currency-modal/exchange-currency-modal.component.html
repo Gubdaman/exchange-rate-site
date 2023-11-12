@@ -1,3 +1,34 @@
+<h1>Forint / Euró átváltó</h1>
+
+<div class="container">
+  <div [hidden]="submitted">
+    <form (ngSubmit)="onSubmit()" #exchangeForm="ngForm">
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label for="amount">Összeg (HUF)</mat-label>
+          <input 
+            matInput 
+            min="0"
+            type="number"  
+            class="form-control"
+            id="amount"
+            required
+            [(ngModel)]="model.amount"
+            name="amount"
+            #amount="ngModel">
+        </mat-form-field>
+
+      </div>
+      <button mat-raised-button color="primary" type="submit" class="btn btn-success" [disabled]="!exchangeForm.form.valid">Átváltás</button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>{{ model.amount }} HUF = {{ convertedValue | number : '1.2-2' }} {{ model.to }}</h2>
+    <button mat-raised-button color="primary" type="button" class="btn btn-primary" (click)="submitted=false">Új összeg váltása</button>
+  </div>
+</div>
+<!--
 <div class="container">
     <div [hidden]="submitted">
       <h1>Currency converter form</h1>
@@ -27,3 +58,4 @@
       <button type="button" class="btn btn-primary" (click)="submitted=false">New conversion</button>
     </div>
   </div>
+  -->
