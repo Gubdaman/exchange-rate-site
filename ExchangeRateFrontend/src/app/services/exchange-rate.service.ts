@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { CurrentExchangeRate } from './current-exchange-rate';
-import { SavedExchangeRate } from './saved-exchange-rate';
-import { CurrencyExchangeRequest } from './currency-exchange-request';
+import { CurrentExchangeRate } from '../interfaces/current-exchange-rate';
+import { SavedExchangeRate } from '../interfaces/saved-exchange-rate';
+import { CurrencyExchangeRequest } from '../interfaces/currency-exchange-request';
 import { LocalstorageService } from './localstorage.service';
 
 @Injectable({

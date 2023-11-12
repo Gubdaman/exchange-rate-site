@@ -8,8 +8,8 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import { SavedExchangeRate } from '../saved-exchange-rate';
-import { ExchangeRateService } from '../exchange-rate.service';
+import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
+import { ExchangeRateService } from '../../services/exchange-rate.service';
 import { SaveExchangeModalComponent } from '../save-exchange-modal/save-exchange-modal.component';
 import { EditExchangeRateModalComponent } from '../edit-exchange-rate-modal/edit-exchange-rate-modal.component';
 import { DeleteExchangeRateModalComponent } from '../delete-exchange-rate-modal/delete-exchange-rate-modal.component';

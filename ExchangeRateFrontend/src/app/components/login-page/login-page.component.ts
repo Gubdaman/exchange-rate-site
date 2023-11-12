@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserData } from '../user-data';
-import { AuthenticationService } from '../authentication.service';
+import { UserData } from '../../interfaces/user-data';
+import { AuthenticationService } from '../../services/authentication.service';
 
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { SavedExchangeRate } from '../saved-exchange-rate';
-import { LocalstorageService } from '../localstorage.service';
+import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
+import { LocalstorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-login-page',

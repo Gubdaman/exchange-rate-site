@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { SavedExchangeRate } from '../saved-exchange-rate';
+import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
 
 @Component({
   selector: 'app-edit-exchange-rate-modal',

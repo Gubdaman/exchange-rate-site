@@ -4,11 +4,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { UserData } from './user-data';
+import { UserData } from '../interfaces/user-data';
 
 import { LocalstorageService } from './localstorage.service'
 import { JWTService } from './jwt.service';
-import { LoginResponse } from './login-response';
+import { LoginResponse } from '../interfaces/login-response';
 
 @Injectable({
   providedIn: 'root'

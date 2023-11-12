@@ -8,12 +8,12 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-import { CurrentExchangeRate } from '../current-exchange-rate';
-import { SavedExchangeRate } from '../saved-exchange-rate';
-import { ExchangeRateService } from '../exchange-rate.service';
+import { CurrentExchangeRate } from '../../interfaces/current-exchange-rate';
+import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
+import { ExchangeRateService } from '../../services/exchange-rate.service';
 import { SaveExchangeModalComponent } from '../save-exchange-modal/save-exchange-modal.component';
 import { ExchangeCurrencyModalComponent } from '../exchange-currency-modal/exchange-currency-modal.component';
-import { LocalstorageService } from '../localstorage.service';
+import { LocalstorageService } from '../../services/localstorage.service';
 
 @Component({
   selector: 'app-current-exchange-rate',

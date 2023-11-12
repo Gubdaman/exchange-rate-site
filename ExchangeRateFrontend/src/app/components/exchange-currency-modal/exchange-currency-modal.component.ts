@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CurrencyExchangeRequest } from '../currency-exchange-request';
-import { ExchangeRateService } from '../exchange-rate.service';
+import { CurrencyExchangeRequest } from '../../interfaces/currency-exchange-request';
+import { ExchangeRateService } from '../../services/exchange-rate.service';
 
 @Component({
   selector: 'app-exchange-currency-modal',
