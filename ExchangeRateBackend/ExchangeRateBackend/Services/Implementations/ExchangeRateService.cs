@@ -25,11 +25,11 @@ namespace ExchangeRateBackend.Services.Implementations
             return exchangeRates;
         }
 
-        public async Task<List<SavedExchangeRate>> GetSavedExchangeRatesAsync()
+        public async Task<List<SavedExchangeRate>> GetSavedExchangeRatesAsync(int userId)
         {
             using (var db = new DatabaseContext())
             {
-                var models = db.SavedExchangeRates.ToList();
+                var models = db.SavedExchangeRates.Where(t => t.UserId == userId).ToList();
                 return _mapper.Map<List<SavedExchangeRate>>(models);
             }
         }
@@ -62,6 +62,7 @@ namespace ExchangeRateBackend.Services.Implementations
                     Comment = data.Comment,
                     Currency = data.Currency,
                     UpdatedAt = DateTime.UtcNow,
+                    UserId = data.UserId,
                 };
                 var model = db.SavedExchangeRates.Add(newData);
                 await db.SaveChangesAsync();

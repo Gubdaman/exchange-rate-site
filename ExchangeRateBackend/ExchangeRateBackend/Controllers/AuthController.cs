@@ -27,12 +27,12 @@ namespace ExchangeRateBackend.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDataRequest request)
+        public async Task<LoginResponse> Login([FromBody] LoginDataRequest request)
         {
             var profile = await _profileService.Login(_mapper.Map<LoginData>(request));
             if(profile == null)
             {
-                return BadRequest();
+                return null;
             }
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -48,7 +48,10 @@ namespace ExchangeRateBackend.Controllers
 
             var token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
 
-            return Ok(token);
+            return new LoginResponse()
+            {
+                Token = token
+            };
         }
 
         [HttpPost]

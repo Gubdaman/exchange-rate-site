@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { CurrentExchangeRate } from './current-exchange-rate';
 import { SavedExchangeRate } from './saved-exchange-rate';
 import { CurrencyExchangeRequest } from './currency-exchange-request';
+import { LocalstorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,14 @@ export class ExchangeRateService {
   private exchangeRateUrl = 'https://localhost:7173/';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.localstorageService.get('token') })
   };
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient, private localstorageService: LocalstorageService) { }
 
     getCurrentExchangeRates(): Observable<CurrentExchangeRate[]> {
-      return this.http.get<CurrentExchangeRate[]>(this.exchangeRateUrl + "current-exchange-rates")
+      return this.http.get<CurrentExchangeRate[]>(this.exchangeRateUrl + "current-exchange-rates", this.httpOptions)
         .pipe(
           tap(_ => this.log('fetched current exchange rates')),
           catchError(this.handleError<CurrentExchangeRate[]>('getCurrentExchangeRates', []))
@@ -31,7 +32,7 @@ export class ExchangeRateService {
     }
 
     getSavedExchangeRates(): Observable<SavedExchangeRate[]> {
-      return this.http.get<SavedExchangeRate[]>(this.exchangeRateUrl + "saved")
+      return this.http.get<SavedExchangeRate[]>(this.exchangeRateUrl + "saved/" + this.localstorageService.get('userId'), this.httpOptions)
         .pipe(
           tap(_ => this.log('fetched saved exchange rates')),
           catchError(this.handleError<SavedExchangeRate[]>('getCurrentExchangeRates', []))
@@ -39,7 +40,7 @@ export class ExchangeRateService {
     }
 
     saveExchangeRate(rate: SavedExchangeRate): Observable<SavedExchangeRate> {
-      return this.http.put<SavedExchangeRate>(this.exchangeRateUrl + "save-exchange-rate", rate)
+      return this.http.put<SavedExchangeRate>(this.exchangeRateUrl + "save-exchange-rate", rate, this.httpOptions)
         .pipe(
           tap(_ => this.log('saved exchange rate')),
           catchError(this.handleError<SavedExchangeRate>('getCurrentExchangeRates', null!))
@@ -47,7 +48,7 @@ export class ExchangeRateService {
     }
 
     deleteExchangeRate(id: number): Observable<boolean> {
-      return this.http.delete<boolean>(this.exchangeRateUrl + "delete/" + id)
+      return this.http.delete<boolean>(this.exchangeRateUrl + "delete/" + id, this.httpOptions)
         .pipe(
           tap(_ => this.log('deleted exchange rate')),
           catchError(this.handleError<boolean>('deleteExchangeRate', false))
@@ -55,7 +56,7 @@ export class ExchangeRateService {
     }
 
     updateExchangeRate(rate: SavedExchangeRate): Observable<SavedExchangeRate> {
-      return this.http.post<SavedExchangeRate>(this.exchangeRateUrl + "update-exchange-rate", rate)
+      return this.http.post<SavedExchangeRate>(this.exchangeRateUrl + "update-exchange-rate", rate, this.httpOptions)
         .pipe(
           tap(_ => this.log('deleted exchange rate')),
           catchError(this.handleError<SavedExchangeRate>('deleteExchangeRate', null!))
@@ -63,7 +64,7 @@ export class ExchangeRateService {
     }
 
     convertAmount(req: CurrencyExchangeRequest): Observable<number> {
-      return this.http.post<number>(this.exchangeRateUrl + "exchange", req)
+      return this.http.post<number>(this.exchangeRateUrl + "exchange", req, this.httpOptions)
         .pipe(
           tap(_ => this.log('conversion success')),
           catchError(this.handleError<number>('convertAmount', 0))

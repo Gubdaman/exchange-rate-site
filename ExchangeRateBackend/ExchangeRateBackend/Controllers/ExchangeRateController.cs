@@ -28,10 +28,6 @@ namespace ExchangeRateBackend.Controllers
         {
             var rates = await _exchangeRateService.GetCurrentExchangeRatesAsync();
             return _mapper.Map<List<ExchangeRateResponse>>(rates);
-            /*return new GetCurrentExchangeRatesResponse()
-            {
-                ExchangeRates = _mapper.Map<List<ExchangeRateResponse>>(rates)
-            };*/
         }
 
         [HttpPut]
@@ -51,19 +47,11 @@ namespace ExchangeRateBackend.Controllers
         }
 
         [HttpGet]
-        [Route("/saved")]
-        public async Task<List<SaveExchangeRateResponse>> GetSavedAsync()
+        [Route("/saved/{userId}")]
+        public async Task<List<SaveExchangeRateResponse>> GetSavedAsync(int userId)
         {
-            var response = await _exchangeRateService.GetSavedExchangeRatesAsync();
+            var response = await _exchangeRateService.GetSavedExchangeRatesAsync(userId);
             return _mapper.Map<List<SaveExchangeRateResponse>>(response);
-        }
-
-        [HttpGet]
-        [Route("/saved/{id}")]
-        public async Task<SaveExchangeRateResponse> GetSavedByIdAsync(int id)
-        {
-            var response = await _exchangeRateService.GetSavedExchangeRateByIdAsync(id);
-            return _mapper.Map<SaveExchangeRateResponse>(response);
         }
 
         [HttpPost]

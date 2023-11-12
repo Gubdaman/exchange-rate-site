@@ -21,6 +21,3 @@ namespace ExchangeRateBackend.Models.MNB
         public DateInterval DateInterval { get; set; }
     }
 }
-
-//GetDateIntervalResponse
-//<MNBStoredInterval><DateInterval startdate="1949-01-03" enddate="2023-11-10" /></MNBStoredInterval>

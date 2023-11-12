@@ -13,6 +13,7 @@ import { SavedExchangeRate } from '../saved-exchange-rate';
 import { ExchangeRateService } from '../exchange-rate.service';
 import { SaveExchangeModalComponent } from '../save-exchange-modal/save-exchange-modal.component';
 import { ExchangeCurrencyModalComponent } from '../exchange-currency-modal/exchange-currency-modal.component';
+import { LocalstorageService } from '../localstorage.service';
 
 @Component({
   selector: 'app-current-exchange-rate',
@@ -24,7 +25,7 @@ import { ExchangeCurrencyModalComponent } from '../exchange-currency-modal/excha
 export class CurrentExchangeRateComponent implements OnInit {
   currentExchangeRates: CurrentExchangeRate[] = [];
 
-  constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog) {}
+  constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog, private localstorageService: LocalstorageService) {}
 
   ngOnInit(): void {
     this.exchangeRateService.getCurrentExchangeRates()
@@ -37,7 +38,8 @@ export class CurrentExchangeRateComponent implements OnInit {
       currency: exchangeRateData.currency,
       exchangeRate: exchangeRateData.value,
       createdAt: "",
-      id: 0
+      id: 0,
+      userId: +(this.localstorageService.get('userId') || 0)
     }
     this.exchangeRateService.saveExchangeRate(req)
     .subscribe(exchangeRates => window.alert("Save was successful!"));
