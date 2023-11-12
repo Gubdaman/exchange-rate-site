@@ -1,4 +1,5 @@
-# exchange-rate-site
+
+# Exchange-rate-site
 
 # Task description:
 
@@ -6,16 +7,16 @@ A feladat, hogy készíts egy mini site-ot, frontendként Angulart, backendként
 
 Az alábbi funkciókat kérjük megvalósítani:
 
-  Bejelentkezés
-  User regisztráció
-  Bejelentkezett oldal funkciói:
-    Jelenítse meg az MNB interfészéről (https://www.mnb.hu/arfolyamok.asmx) lekérdezhető árfolyamokat egy táblázatban. Az oldalon lehessen az egyes árfolyamok aktuális állapotát elmenteni adatbázisba egy opcionális megjegyzéssel.
-    Mini form, ahol megadott input adatra (forint összeg) kiírja a program az annak megfelelő EUR összeget.
-    Egy oldal, ami megjelenít egy listát elmentett árfolyamokról, és szerkeszteni lehet a megjegyzést, és törölni a rekordokat. Az alábbi adatokat kérjük elmenteni:
-      Mentés időpontja
-      Valuta
-      Érték
-      Megjegyzés (szöveges, nem kötelező, max. 100 karakter)
+Bejelentkezés
+User regisztráció
+Bejelentkezett oldal funkciói:
+- Jelenítse meg az MNB interfészéről (https://www.mnb.hu/arfolyamok.asmx) lekérdezhető árfolyamokat egy táblázatban. Az oldalon lehessen az egyes árfolyamok aktuális állapotát elmenteni adatbázisba egy opcionális megjegyzéssel.
+- Mini form, ahol megadott input adatra (forint összeg) kiírja a program az annak megfelelő EUR összeget.
+- Egy oldal, ami megjelenít egy listát elmentett árfolyamokról, és szerkeszteni lehet a megjegyzést, és törölni a rekordokat. Az alábbi adatokat kérjük elmenteni:
+-- Mentés időpontja
+-- Valuta
+-- Érték
+-- Megjegyzés (szöveges, nem kötelező, max. 100 karakter)
 
 Az adatokat kérlek MSSQL adatbázisban tárold el.
 
@@ -30,10 +31,10 @@ MNB service has a mocked version in case tomething unexpected happened. This moc
 
 # Bugs
 
+Even if the endpoint fails, the snackbar displays that it was successful
 
 # What could be improved
 
-Fix bugs
 Better logging
 Better error handling
 Use connection string from appsettings.json (or move to env variable)
