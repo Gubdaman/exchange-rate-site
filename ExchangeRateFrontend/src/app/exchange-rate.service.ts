@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { CurrentExchangeRate } from './current-exchange-rate';
 import { SavedExchangeRate } from './saved-exchange-rate';
+import { CurrencyExchangeRequest } from './currency-exchange-request';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,14 @@ export class ExchangeRateService {
         .pipe(
           tap(_ => this.log('deleted exchange rate')),
           catchError(this.handleError<SavedExchangeRate>('deleteExchangeRate', null!))
+        );
+    }
+
+    convertAmount(req: CurrencyExchangeRequest): Observable<number> {
+      return this.http.post<number>(this.exchangeRateUrl + "exchange", req)
+        .pipe(
+          tap(_ => this.log('conversion success')),
+          catchError(this.handleError<number>('convertAmount', 0))
         );
     }
 
