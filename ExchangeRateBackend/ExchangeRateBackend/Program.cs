@@ -40,8 +40,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddScoped<IMNBDataService, MNBDataServiceMocked>(); 
-//builder.Services.AddScoped<IMNBDataService, MNBDataService>();
+//builder.Services.AddScoped<IMNBDataService, MNBDataServiceMocked>(); Use this if MNB service is not working for some reason
+builder.Services.AddScoped<IMNBDataService, MNBDataService>();
 builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
