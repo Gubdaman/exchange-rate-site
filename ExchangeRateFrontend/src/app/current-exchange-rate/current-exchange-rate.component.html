@@ -1,11 +1,3 @@
-<p>login-page worksasdasd!</p>
-
-<!--<ul class="search-result">
-    <li *ngFor="let currentExchangeRate of currentExchangeRates" >
-        {{currentExchangeRate.currency}}
-    </li>
-</ul>-->
-
 <table>
     <tr>
       <th>Currency</th>
@@ -15,6 +7,6 @@
     <tr *ngFor="let currentExchangeRate of currentExchangeRates">
       <td>{{currentExchangeRate.currency}}</td>
       <td>{{currentExchangeRate.value}}</td>
-      <td>BUTTON</td>
+      <td><button (click)="openDialog(currentExchangeRate)">Save</button></td>
     </tr>
 </table>

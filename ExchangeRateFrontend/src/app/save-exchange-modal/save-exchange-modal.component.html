@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Do you want to save this exchange rate?</h1>
+<div mat-dialog-content>
+  <p>Additional comment</p>
+  <mat-form-field>
+    <mat-label>Not required</mat-label>
+    <input matInput [(ngModel)]="data">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

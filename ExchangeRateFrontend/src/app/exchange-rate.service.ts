@@ -12,7 +12,7 @@ import { SavedExchangeRate } from './saved-exchange-rate';
 })
 export class ExchangeRateService {
 
-  private exchangeRateUrl = 'https://localhost:7173/';  // URL to web api
+  private exchangeRateUrl = 'https://localhost:7173/';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -29,29 +29,30 @@ export class ExchangeRateService {
         );
     }
 
-    /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
+    getSavedExchangeRates(): Observable<SavedExchangeRate[]> {
+      return this.http.get<SavedExchangeRate[]>(this.exchangeRateUrl + "saved")
+        .pipe(
+          tap(_ => this.log('fetched saved exchange rates')),
+          catchError(this.handleError<SavedExchangeRate[]>('getCurrentExchangeRates', []))
+        );
+    }
+
+    saveExchangeRate(rate: SavedExchangeRate): Observable<SavedExchangeRate> {
+      return this.http.put<SavedExchangeRate>(this.exchangeRateUrl + "save-exchange-rate", rate)
+        .pipe(
+          tap(_ => this.log('saved exchange rate')),
+          catchError(this.handleError<SavedExchangeRate>('getCurrentExchangeRates', null!))
+        );
+    }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
+      console.error(error);
       return of(result as T);
     };
   }
 
-  /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    console.error(`HeroService: ${message}`);
+    console.log(`ExchangeRateService: ${message}`);
   }
 }
