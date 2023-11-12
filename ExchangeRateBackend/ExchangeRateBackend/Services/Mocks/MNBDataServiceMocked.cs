@@ -13,7 +13,7 @@ namespace ExchangeRateBackend.Services.Mocks
             MNBCurrencies response;
             using (TextReader reader = new StringReader(data))
             {
-                response = (MNBCurrencies)deserializer.Deserialize(reader);
+                response = (MNBCurrencies)deserializer.Deserialize(reader)!;
             }
             return Task.FromResult(response);
         }
@@ -25,7 +25,7 @@ namespace ExchangeRateBackend.Services.Mocks
             MNBCurrentExchangeRates response;
             using (TextReader reader = new StringReader(data))
             {
-                response = (MNBCurrentExchangeRates)deserializer.Deserialize(reader);
+                response = (MNBCurrentExchangeRates)deserializer.Deserialize(reader)!;
             }
             return Task.FromResult(response);
         }
@@ -37,7 +37,7 @@ namespace ExchangeRateBackend.Services.Mocks
             MNBStoredInterval response;
             using (TextReader reader = new StringReader(data))
             {
-                response = (MNBStoredInterval)deserializer.Deserialize(reader);
+                response = (MNBStoredInterval)deserializer.Deserialize(reader)!;
             }
             return Task.FromResult(response);
         }
@@ -49,7 +49,7 @@ namespace ExchangeRateBackend.Services.Mocks
             MNBExchangeRates response;
             using (TextReader reader = new StringReader(data))
             {
-                response = (MNBExchangeRates)deserializer.Deserialize(reader);
+                response = (MNBExchangeRates)deserializer.Deserialize(reader)!;
             }
             return Task.FromResult(response);
         }
@@ -61,7 +61,7 @@ namespace ExchangeRateBackend.Services.Mocks
             MNBExchangeRatesQueryValues response;
             using (TextReader reader = new StringReader(data))
             {
-                response = (MNBExchangeRatesQueryValues)deserializer.Deserialize(reader);
+                response = (MNBExchangeRatesQueryValues)deserializer.Deserialize(reader)!;
             }
             return Task.FromResult(response);
         }

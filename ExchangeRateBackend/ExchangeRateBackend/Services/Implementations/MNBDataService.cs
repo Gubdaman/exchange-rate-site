@@ -22,7 +22,7 @@ namespace ExchangeRateBackend.Services.Implementations
             MNBCurrencies currencies;
             using (TextReader reader = new StringReader(response.GetCurrenciesResponse1.GetCurrenciesResult))
             {
-                currencies = (MNBCurrencies)deserializer.Deserialize(reader);
+                currencies = (MNBCurrencies)deserializer.Deserialize(reader)!;
             }
 
             return currencies;
@@ -30,7 +30,21 @@ namespace ExchangeRateBackend.Services.Implementations
 
         public async Task<MNBCurrentExchangeRates> GetCurrentExchangeRatesAsync()
         {
-            throw new NotImplementedException();
+            GetCurrentExchangeRatesResponse response;
+            using (MNBArfolyamServiceSoapClient client = new MNBArfolyamServiceSoapClient())
+            {
+                var request = new GetCurrentExchangeRatesRequestBody();
+                response = await client.GetCurrentExchangeRatesAsync(request);
+            }
+
+            XmlSerializer deserializer = new XmlSerializer(typeof(MNBCurrentExchangeRates));
+            MNBCurrentExchangeRates exchangeRates;
+            using (TextReader reader = new StringReader(response.GetCurrentExchangeRatesResponse1.GetCurrentExchangeRatesResult))
+            {
+                exchangeRates = (MNBCurrentExchangeRates)deserializer.Deserialize(reader)!;
+            }
+
+            return exchangeRates;
         }
 
         public async Task<MNBStoredInterval> GetDateIntervalAsync()

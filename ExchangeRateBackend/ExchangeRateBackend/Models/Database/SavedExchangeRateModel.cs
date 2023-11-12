@@ -8,8 +8,9 @@ namespace ExchangeRateBackend.Models.Database
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Currency { get; set; }
-        public string Comment { get; set; }
+        public string Currency { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string Comment { get; set; } = null!;
         public double ExchangeRate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

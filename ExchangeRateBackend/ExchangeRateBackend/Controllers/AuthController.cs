@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExchangeRateBackend.Models.Request;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Models.Service;
 using ExchangeRateBackend.Services.Interfaces;
@@ -32,7 +33,7 @@ namespace ExchangeRateBackend.Controllers
             var profile = await _profileService.Login(_mapper.Map<LoginData>(request));
             if(profile == null)
             {
-                return null;
+                return null!;
             }
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

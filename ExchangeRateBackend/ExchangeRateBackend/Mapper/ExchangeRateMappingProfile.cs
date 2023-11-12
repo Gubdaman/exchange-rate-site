@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ExchangeRateBackend.Models.Database;
 using ExchangeRateBackend.Models.MNB;
+using ExchangeRateBackend.Models.Request;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Models.Service;
 using System.Globalization;

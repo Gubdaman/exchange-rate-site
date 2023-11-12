@@ -1,4 +1,5 @@
 using AutoMapper;
+using ExchangeRateBackend.Models.Request;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExchangeRateBackend.Controllers
 {
     [Authorize]
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class ExchangeRateController : ControllerBase
     {
         private readonly ILogger<ExchangeRateController> _logger;
@@ -23,49 +24,55 @@ namespace ExchangeRateBackend.Controllers
         }
 
         [HttpGet]
-        [Route("/current-exchange-rates")]
-        public async Task<List<ExchangeRateResponse>> GetCurrenciesAsync()
+        [Route("current")]
+        public async Task<List<ExchangeRateResponse>> GetCurrentExchangeRatesAsync()
         {
+            _logger.LogInformation("GetCurrentExchangeRatesAsync Start");
             var rates = await _exchangeRateService.GetCurrentExchangeRatesAsync();
             return _mapper.Map<List<ExchangeRateResponse>>(rates);
         }
 
         [HttpPut]
-        [Route("/save-exchange-rate")]
+        [Route("save")]
         public async Task<SaveExchangeRateResponse> SaveExchangeRate(SaveExchangeRateRequest request)
         {
+            _logger.LogInformation("SaveExchangeRate Start");
             var response = await _exchangeRateService.SaveExchangeRateAsync(request);
             return _mapper.Map<SaveExchangeRateResponse>(response);
         }
 
         [HttpPost]
-        [Route("/update-exchange-rate")]
+        [Route("update")]
         public async Task<SaveExchangeRateResponse> UpdateSavedExchangeRate(UpdateExchangeRateRequest request)
         {
-            var response = await _exchangeRateService.UpdateSavedExchangeRate(request);
+            _logger.LogInformation("UpdateSavedExchangeRate Start");
+            var response = await _exchangeRateService.UpdateSavedExchangeRateAsync(request);
             return _mapper.Map<SaveExchangeRateResponse>(response);
         }
 
         [HttpGet]
-        [Route("/saved/{userId}")]
-        public async Task<List<SaveExchangeRateResponse>> GetSavedAsync(int userId)
+        [Route("saved/{userId}")]
+        public List<SaveExchangeRateResponse> GetSaved(int userId)
         {
-            var response = await _exchangeRateService.GetSavedExchangeRatesAsync(userId);
+            _logger.LogInformation("GetSaved Start");
+            var response = _exchangeRateService.GetSavedExchangeRates(userId);
             return _mapper.Map<List<SaveExchangeRateResponse>>(response);
         }
 
         [HttpPost]
-        [Route("/exchange/")]
+        [Route("exchange/")]
         public async Task<double> ExchangeAsync(ExchangeRequest request)
         {
+            _logger.LogInformation("ExchangeAsync Start");
             var response = await _exchangeRateService.ExchangeCurrenciesAsync(request.To, request.Amount);
             return response;
         }
 
         [HttpDelete]
-        [Route("/delete/{id}")]
+        [Route("delete/{id}")]
         public async Task<bool> DeleteAsync(int id)
         {
+            _logger.LogInformation("DeleteAsync Start");
             var response = await _exchangeRateService.DeleteSavedExchangeRateAsync(id);
             return response;
         }

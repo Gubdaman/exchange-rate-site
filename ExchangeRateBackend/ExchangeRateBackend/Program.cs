@@ -1,17 +1,13 @@
-using ExchangeRateBackend.Database;
 using ExchangeRateBackend.Mapper;
 using ExchangeRateBackend.Services.Implementations;
 using ExchangeRateBackend.Services.Interfaces;
 using ExchangeRateBackend.Services.Mocks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -44,7 +40,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddScoped<IMNBDataService, MNBDataServiceMocked>();
+builder.Services.AddScoped<IMNBDataService, MNBDataServiceMocked>(); 
+//builder.Services.AddScoped<IMNBDataService, MNBDataService>();
 builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
@@ -70,7 +67,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
      };
  });
 
-// Add services to the container.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("myAppCors", policy =>
@@ -81,14 +77,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-/*var configuration = new ConfigurationBuilder()
-    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-    .Build();*/
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -96,12 +86,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.UseCors("myAppCors");
 
 app.Run();

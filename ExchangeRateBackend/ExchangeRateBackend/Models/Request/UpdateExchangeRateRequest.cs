@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ExchangeRateBackend.Models.RequestResponse
+namespace ExchangeRateBackend.Models.Request
 {
     public class UpdateExchangeRateRequest
     {
+        [Required]
         public int Id { get; set; }
         [StringLength(100)]
-        public string Comment { get; set; }
+        public string Comment { get; set; } = string.Empty;
     }
 }

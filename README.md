@@ -26,6 +26,8 @@ Frontend can be started with "ng serve", will listen on "localhost:4200"
 Backend needs EntityFramework migrations to be applied so database tables are created, this can be done with "dotnet ef database update --project ExchangeRateBackend" from the nuget package manager console.
 The local MSSQL database is used (connectionstring: Server=(localdb)\\mssqllocaldb;Database=ExchangeSiteDB;Trusted_Connection=True;)
 
+MNB service has a mocked version in case tomething unexpected happened. This mocked version can be used if in the program.cs the mocked service is added with dependency injection (the line is already there, commented out)
+
 # Features
 
 JWT token auth
@@ -46,6 +48,9 @@ Remove unnecessary MNB data structure
 Refactor request, response, model and service layer object in .net app
 Redirection to 404 page if needed, not logged in users should only access login page
 Redirection to main page on login
+Automapper profiles could be separated (controller-service, service-db model)
+Custom exceptions in backend
+Translations (i18n on UI)
 Optimization
 - Not tracking saved exchange rates on get query
 - Add sealed keyword to classes that are not inherited

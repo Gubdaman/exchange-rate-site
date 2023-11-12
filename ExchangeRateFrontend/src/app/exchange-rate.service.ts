@@ -14,7 +14,7 @@ import { LocalstorageService } from './localstorage.service';
 })
 export class ExchangeRateService {
 
-  private exchangeRateUrl = 'https://localhost:7173/';
+  private exchangeRateUrl = 'https://localhost:7173/api/ExchangeRate/';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.localstorageService.get('token') })
@@ -24,7 +24,7 @@ export class ExchangeRateService {
     private http: HttpClient, private localstorageService: LocalstorageService) { }
 
     getCurrentExchangeRates(): Observable<CurrentExchangeRate[]> {
-      return this.http.get<CurrentExchangeRate[]>(this.exchangeRateUrl + "current-exchange-rates", this.httpOptions)
+      return this.http.get<CurrentExchangeRate[]>(this.exchangeRateUrl + "current", this.httpOptions)
         .pipe(
           tap(_ => this.log('fetched current exchange rates')),
           catchError(this.handleError<CurrentExchangeRate[]>('getCurrentExchangeRates', []))
@@ -40,7 +40,7 @@ export class ExchangeRateService {
     }
 
     saveExchangeRate(rate: SavedExchangeRate): Observable<SavedExchangeRate> {
-      return this.http.put<SavedExchangeRate>(this.exchangeRateUrl + "save-exchange-rate", rate, this.httpOptions)
+      return this.http.put<SavedExchangeRate>(this.exchangeRateUrl + "save", rate, this.httpOptions)
         .pipe(
           tap(_ => this.log('saved exchange rate')),
           catchError(this.handleError<SavedExchangeRate>('getCurrentExchangeRates', null!))
@@ -56,7 +56,7 @@ export class ExchangeRateService {
     }
 
     updateExchangeRate(rate: SavedExchangeRate): Observable<SavedExchangeRate> {
-      return this.http.post<SavedExchangeRate>(this.exchangeRateUrl + "update-exchange-rate", rate, this.httpOptions)
+      return this.http.post<SavedExchangeRate>(this.exchangeRateUrl + "update", rate, this.httpOptions)
         .pipe(
           tap(_ => this.log('deleted exchange rate')),
           catchError(this.handleError<SavedExchangeRate>('deleteExchangeRate', null!))
@@ -73,7 +73,7 @@ export class ExchangeRateService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.error(operation + ": " + error);
       return of(result as T);
     };
   }

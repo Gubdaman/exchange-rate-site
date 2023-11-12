@@ -2,7 +2,7 @@
 {
     public class ExchangeRateResponse
     {
-        public string Currency { get; set; }
+        public string Currency { get; set; } = string.Empty;
 
         public double Value { get; set; }
     }
