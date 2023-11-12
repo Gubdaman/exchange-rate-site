@@ -1,0 +1,20 @@
+Todo:
+
+Validation for requests
+Error handling
+Login, register
+Authentication
+Migrations
+Unit tests
+Move connection string to appsettings
+Readme with setup steps
+Readme reasons for selected ligraries
+
+Additional features:
+
+Role based API access
+More secure connection string storing
+Pagination for saved exchange rates
+Logging
+Deploy with docker
+Code smell check

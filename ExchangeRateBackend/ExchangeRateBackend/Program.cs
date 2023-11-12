@@ -19,6 +19,19 @@ builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 
 builder.Services.AddAutoMapper(typeof(ExchangeRateMappingProfile));
 
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("myAppCors", policy =>
+    {
+        policy.WithOrigins(allowedOrigin)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
+
 /*var configuration = new ConfigurationBuilder()
     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -38,5 +51,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("myAppCors");
 
 app.Run();

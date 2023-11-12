@@ -1,0 +1,9 @@
+Todo:
+
+Login screen
+Main table page
+Save exchange rate modal
+Saved exchange rate table
+Update/delete saved data modals
+Exchange to EUR modal
+

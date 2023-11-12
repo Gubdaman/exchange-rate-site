@@ -1,5 +1,4 @@
 using AutoMapper;
-using Azure;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +22,14 @@ namespace ExchangeRateBackend.Controllers
 
         [HttpGet]
         [Route("/current-exchange-rates")]
-        public async Task<GetCurrentExchangeRatesResponse> GetCurrenciesAsync()
+        public async Task<List<ExchangeRateResponse>> GetCurrenciesAsync()
         {
             var rates = await _exchangeRateService.GetCurrentExchangeRatesAsync();
-            return new GetCurrentExchangeRatesResponse()
+            return _mapper.Map<List<ExchangeRateResponse>>(rates);
+            /*return new GetCurrentExchangeRatesResponse()
             {
                 ExchangeRates = _mapper.Map<List<ExchangeRateResponse>>(rates)
-            };
+            };*/
         }
 
         [HttpPut]
