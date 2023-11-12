@@ -41,6 +41,7 @@ MNB service has a mocked version in case tomething unexpected happened. This moc
 # Bugs
 
 Even if the endpoint fails, the snackbar displays that it was successful
+
 Pages can be opened while not logged in, and functionalities break as no endpoint gives back anything
 
 # What could be improved
