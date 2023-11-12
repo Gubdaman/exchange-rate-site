@@ -18,6 +18,7 @@ namespace ExchangeRateBackend.Mapper
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => double.Parse(src.Text, serverCulture) / src.Unit));
             CreateMap<SavedExchangeRate, SaveExchangeRateResponse>();
             CreateMap<SavedExchangeRate, SavedExchangeRateModel>().ReverseMap();
+            CreateMap<LoginData, LoginDataRequest>().ReverseMap();
         }
     }
 }

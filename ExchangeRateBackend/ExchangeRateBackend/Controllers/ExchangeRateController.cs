@@ -1,12 +1,14 @@
 using AutoMapper;
 using ExchangeRateBackend.Models.RequestResponse;
 using ExchangeRateBackend.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExchangeRateBackend.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ExchangeRateController : ControllerBase
     {
         private readonly ILogger<ExchangeRateController> _logger;

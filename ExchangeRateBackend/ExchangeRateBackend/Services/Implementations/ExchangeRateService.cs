@@ -55,7 +55,6 @@ namespace ExchangeRateBackend.Services.Implementations
         {
             using (var db = new DatabaseContext())
             {
-                db.Database.EnsureCreated();
                 var newData = new SavedExchangeRateModel()
                 {
                     CreatedAt = DateTime.UtcNow,

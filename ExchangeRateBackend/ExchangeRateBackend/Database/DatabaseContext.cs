@@ -11,10 +11,11 @@ namespace ExchangeRateBackend.Database
         }
 
         public DbSet<SavedExchangeRateModel> SavedExchangeRates { get; set; }
+        public DbSet<UserModel> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SchoolDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ExchangeSiteDB;Trusted_Connection=True;");
         }
     }
 }

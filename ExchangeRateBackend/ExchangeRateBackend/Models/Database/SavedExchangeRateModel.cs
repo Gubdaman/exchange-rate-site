@@ -13,6 +13,8 @@ namespace ExchangeRateBackend.Models.Database
         public double ExchangeRate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public int UserId { get; set; }
+        public UserModel User { get; set; } = null!;
 
     }
 }
