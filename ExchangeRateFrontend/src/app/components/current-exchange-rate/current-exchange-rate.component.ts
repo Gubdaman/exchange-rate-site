@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { CurrentExchangeRate } from '../../interfaces/current-exchange-rate';
 import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
@@ -19,7 +20,7 @@ import { LocalstorageService } from '../../services/localstorage.service';
 @Component({
   selector: 'app-current-exchange-rate',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, ExchangeCurrencyModalComponent, MatTableModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, ExchangeCurrencyModalComponent, MatTableModule, MatSnackBarModule],
   templateUrl: './current-exchange-rate.component.html',
   styleUrl: './current-exchange-rate.component.css'
 })
@@ -27,7 +28,7 @@ export class CurrentExchangeRateComponent implements OnInit {
   displayedColumns: string[] = ['currency', 'value', 'save'];
   currentExchangeRates: CurrentExchangeRate[] = [];
 
-  constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog, private localstorageService: LocalstorageService) {}
+  constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog, private localstorageService: LocalstorageService, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.exchangeRateService.getCurrentExchangeRates()
@@ -44,7 +45,7 @@ export class CurrentExchangeRateComponent implements OnInit {
       userId: +(this.localstorageService.get('userId') || 0)
     }
     this.exchangeRateService.saveExchangeRate(req)
-    .subscribe(exchangeRates => window.alert("Save was successful!"));
+    .subscribe(exchangeRates => this._snackBar.open("Sikeres mentés!", "Bezár"));
   }
 
   openDialog(exchangeRateData: CurrentExchangeRate): void {

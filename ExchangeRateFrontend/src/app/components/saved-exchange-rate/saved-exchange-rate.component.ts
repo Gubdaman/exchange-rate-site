@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
 import { ExchangeRateService } from '../../services/exchange-rate.service';
@@ -17,7 +18,7 @@ import { DeleteExchangeRateModalComponent } from '../delete-exchange-rate-modal/
 @Component({
   selector: 'app-saved-exchange-rate',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, MatTableModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, MatTableModule, MatSnackBarModule],
   templateUrl: './saved-exchange-rate.component.html',
   styleUrl: './saved-exchange-rate.component.css'
 })
@@ -25,7 +26,7 @@ export class SavedExchangeRateComponent {
   displayedColumns: string[] = ['currency', 'value', 'comment', 'createdAt', 'edit', 'delete'];
   savedExchangeRates: SavedExchangeRate[] = [];
 
-  constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog) {}
+  constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.exchangeRateService.getSavedExchangeRates()
@@ -41,7 +42,7 @@ export class SavedExchangeRateComponent {
     dialogRef.afterClosed().subscribe(result => {
       if(result !== undefined){
         this.exchangeRateService.updateExchangeRate(exchangeRateData)
-          .subscribe(exchangeRates => window.alert("Update was successful!"));
+          .subscribe(exchangeRates => this._snackBar.open("Sikeres módosítás!", "Bezár"));
       }
     });
   }
@@ -56,7 +57,7 @@ export class SavedExchangeRateComponent {
       console.log(result);
       if(result === true){
         this.exchangeRateService.deleteExchangeRate(exchangeRateData.id)
-          .subscribe(exchangeRates => window.alert("Delete was successful!"));
+          .subscribe(exchangeRates => this._snackBar.open("Sikeres törlés!", "Bezár"));
       }
     });
   }
