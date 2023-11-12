@@ -28,16 +28,15 @@ The local MSSQL database is used (connectionstring: Server=(localdb)\\mssqllocal
 
 MNB service has a mocked version in case tomething unexpected happened. This mocked version can be used if in the program.cs the mocked service is added with dependency injection (the line is already there, commented out)
 
-# Features
-
-JWT token auth
-Angular material design (on some pages)
-
 # Bugs
 
 
 # What could be improved
 
+Fix bugs
+Better logging
+Better error handling
+Use connection string from appsettings.json (or move to env variable)
 Move database, frontend and backend to docker
 More secure connection string storing
 Pagination for saved exchange rates
@@ -51,15 +50,11 @@ Redirection to main page on login
 Automapper profiles could be separated (controller-service, service-db model)
 Custom exceptions in backend
 Translations (i18n on UI)
+Unit tests
+Move interfaces and services to a different place in the Angular app
+Investigating whenever number formatting (delimiter, ',' or '.' could cause issues when deployed to different server
 Optimization
 - Not tracking saved exchange rates on get query
 - Add sealed keyword to classes that are not inherited
 
-# Todo:
-
-Better validation for requests
-Better error handling
-Unit tests
-Move connection string to appsettings.json
-Logging
-Move interfaces and services to a different place in the Angular app
+(CI/CD)
