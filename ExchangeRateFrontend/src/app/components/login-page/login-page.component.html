@@ -1,18 +1,19 @@
+<br>
 <div>
     <mat-form-field>
-        <mat-label>Username</mat-label>
+        <mat-label>Felhasználónév</mat-label>
         <input matInput [(ngModel)]="data.username">
     </mat-form-field>
     
     <mat-form-field>
-        <mat-label>Password</mat-label>
+        <mat-label>Jelszó</mat-label>
         <input matInput [(ngModel)]="data.password">
     </mat-form-field>
 </div>
 <div>
-    <button mat-button (click)="login()">Login</button>
+    <button mat-raised-button (click)="login()">Bejelentkezés</button>
     
-    <button mat-button (click)="register()">Register</button>
+    <button mat-raised-button (click)="register()">Regisztráció</button>
     
-    <button mat-button (click)="logout()">Log out</button>
+    <button mat-raised-button (click)="logout()">Kijelentkezés</button>
 </div>

@@ -34,15 +34,21 @@ export class SavedExchangeRateComponent {
   }
 
   openEditDialog(exchangeRateData: SavedExchangeRate): void {
+    let dialogData: SavedExchangeRate = {...exchangeRateData};
     const dialogRef = this.dialog.open(EditExchangeRateModalComponent, {
-      data: exchangeRateData,
+      data: dialogData,
       width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result !== undefined){
-        this.exchangeRateService.updateExchangeRate(exchangeRateData)
-          .subscribe(exchangeRates => this._snackBar.open("Sikeres módosítás!", "Bezár"));
+        this.exchangeRateService.updateExchangeRate(result)
+          .subscribe(exchangeRate => {
+            this._snackBar.open("Sikeres módosítás!", "Bezár");
+            const index = this.savedExchangeRates.findIndex(t => t.id === exchangeRate.id);
+            this.savedExchangeRates[index] = exchangeRate;
+            this.savedExchangeRates = [...this.savedExchangeRates]
+          });
       }
     });
   }
@@ -57,7 +63,12 @@ export class SavedExchangeRateComponent {
       console.log(result);
       if(result === true){
         this.exchangeRateService.deleteExchangeRate(exchangeRateData.id)
-          .subscribe(exchangeRates => this._snackBar.open("Sikeres törlés!", "Bezár"));
+          .subscribe(_ => {
+            this._snackBar.open("Sikeres törlés!", "Bezár");
+            const index = this.savedExchangeRates.findIndex(t => t.id === exchangeRateData.id);
+            this.savedExchangeRates.splice(index, 1);
+            this.savedExchangeRates = [...this.savedExchangeRates]
+          });
       }
     });
   }

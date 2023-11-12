@@ -51,7 +51,8 @@ Automapper profiles could be separated (controller-service, service-db model)
 Custom exceptions in backend
 Translations (i18n on UI)
 Spinners/input disable on UI while waiting for response
-TextArea for comment
+Auth token refresh
+Desktop/mobile view, responsive page
 Save and edit exchange rate modals could be merged (reusable modal)
 Unit tests
 Move interfaces and services to a different place in the Angular app

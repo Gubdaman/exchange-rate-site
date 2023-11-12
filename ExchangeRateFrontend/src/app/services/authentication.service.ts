@@ -46,6 +46,7 @@ export class AuthenticationService {
     this.jwtService.setToken(token);
     this.localstorageService.set("token", token);
     this.localstorageService.set("userId", this.jwtService.getId()!.toString());
+    this.localstorageService.set("userName", this.jwtService.getUser()!.toString());
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

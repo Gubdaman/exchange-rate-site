@@ -40,6 +40,7 @@ export class LoginPageComponent {
   logout(): void {
     this.localstorageService.set('token', '');
     this.localstorageService.set('userId', '');
+    this.localstorageService.set('userName', '');
     this._snackBar.open("Sikeres kijelentkezés!", "Bezár")
   }
 }
