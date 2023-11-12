@@ -2,9 +2,17 @@
     <tr>
       <th>Currency</th>
       <th>Value</th>
+      <th>Comment</th>
+      <th>Saved at</th>
+      <th>Edit</th>
+      <th>Delete</th>
     </tr>
     <tr *ngFor="let savedExchangeRate of savedExchangeRates">
       <td>{{savedExchangeRate.currency}}</td>
       <td>{{savedExchangeRate.exchangeRate}}</td>
+      <td>{{savedExchangeRate.comment}}</td>
+      <td>{{savedExchangeRate.createdAt}}</td>
+      <td><button (click)="openEditDialog(savedExchangeRate)">Edit</button></td>
+      <td><button (click)="openDeleteDialog(savedExchangeRate)">Delete</button></td>
     </tr>
 </table>

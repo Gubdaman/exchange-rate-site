@@ -73,7 +73,7 @@ namespace ExchangeRateBackend.Controllers
         }
 
         [HttpDelete]
-        [Route("/delete/")]
+        [Route("/delete/{id}")]
         public async Task<bool> DeleteAsync(int id)
         {
             var response = await _exchangeRateService.DeleteSavedExchangeRateAsync(id);

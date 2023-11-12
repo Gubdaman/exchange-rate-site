@@ -3,4 +3,5 @@ export interface SavedExchangeRate {
     exchangeRate: number;
     currency: string;
     comment: string;
+    createdAt: string;
 }

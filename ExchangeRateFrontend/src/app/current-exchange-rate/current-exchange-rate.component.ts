@@ -35,6 +35,7 @@ export class CurrentExchangeRateComponent implements OnInit {
       comment: comment,
       currency: exchangeRateData.currency,
       exchangeRate: exchangeRateData.value,
+      createdAt: "",
       id: 0
     }
     this.exchangeRateService.saveExchangeRate(req)

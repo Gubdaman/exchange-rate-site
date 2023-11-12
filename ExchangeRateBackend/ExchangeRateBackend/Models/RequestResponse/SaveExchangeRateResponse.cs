@@ -6,5 +6,6 @@
         public string Currency { get; set; }
         public string Comment { get; set; }
         public double ExchangeRate { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

@@ -45,6 +45,22 @@ export class ExchangeRateService {
         );
     }
 
+    deleteExchangeRate(id: number): Observable<boolean> {
+      return this.http.delete<boolean>(this.exchangeRateUrl + "delete/" + id)
+        .pipe(
+          tap(_ => this.log('deleted exchange rate')),
+          catchError(this.handleError<boolean>('deleteExchangeRate', false))
+        );
+    }
+
+    updateExchangeRate(rate: SavedExchangeRate): Observable<SavedExchangeRate> {
+      return this.http.post<SavedExchangeRate>(this.exchangeRateUrl + "update-exchange-rate", rate)
+        .pipe(
+          tap(_ => this.log('deleted exchange rate')),
+          catchError(this.handleError<SavedExchangeRate>('deleteExchangeRate', null!))
+        );
+    }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
