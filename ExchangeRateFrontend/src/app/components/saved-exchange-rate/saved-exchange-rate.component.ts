@@ -7,21 +7,22 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
 
 import { SavedExchangeRate } from '../../interfaces/saved-exchange-rate';
 import { ExchangeRateService } from '../../services/exchange-rate.service';
-import { SaveExchangeModalComponent } from '../save-exchange-modal/save-exchange-modal.component';
 import { EditExchangeRateModalComponent } from '../edit-exchange-rate-modal/edit-exchange-rate-modal.component';
 import { DeleteExchangeRateModalComponent } from '../delete-exchange-rate-modal/delete-exchange-rate-modal.component';
 
 @Component({
   selector: 'app-saved-exchange-rate',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, MatTableModule],
   templateUrl: './saved-exchange-rate.component.html',
   styleUrl: './saved-exchange-rate.component.css'
 })
 export class SavedExchangeRateComponent {
+  displayedColumns: string[] = ['currency', 'value', 'comment', 'createdAt', 'edit', 'delete'];
   savedExchangeRates: SavedExchangeRate[] = [];
 
   constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog) {}

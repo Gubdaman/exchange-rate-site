@@ -13,5 +13,4 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ExchangeRateFrontend';
 }

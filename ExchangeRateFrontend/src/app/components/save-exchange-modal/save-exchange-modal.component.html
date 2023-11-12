@@ -1,12 +1,11 @@
-<h1 mat-dialog-title>Do you want to save this exchange rate?</h1>
+<h1 mat-dialog-title>Biztos el akarod menteni ezt az árfolyamot?</h1>
 <div mat-dialog-content>
-  <p>Additional comment</p>
-  <mat-form-field>
-    <mat-label>Not required</mat-label>
-    <input matInput [(ngModel)]="data">
+  <mat-form-field class="full-width">
+    <mat-label>Megjegyzés (nem kötelező)</mat-label>
+    <input maxlength="100" matInput [(ngModel)]="data" id="comment">    
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+<div mat-dialog-actions align="end">
+  <button mat-button color="warn" (click)="onNoClick()">Vissza</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Mentés</button>
 </div>

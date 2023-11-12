@@ -1,14 +1,24 @@
 <app-exchange-currency-modal></app-exchange-currency-modal>
 
-<table>
-    <tr>
-      <th>Currency</th>
-      <th>Value</th>
-      <th>Save</th>
-    </tr>
-    <tr *ngFor="let currentExchangeRate of currentExchangeRates">
-      <td>{{currentExchangeRate.currency}}</td>
-      <td>{{currentExchangeRate.value}}</td>
-      <td><button (click)="openDialog(currentExchangeRate)">Save</button></td>
-    </tr>
+<h1>Jelenlegi árfolyamok</h1>
+
+<table mat-table [dataSource]="currentExchangeRates" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="currency">
+    <th mat-header-cell *matHeaderCellDef> Valuta </th>
+    <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef> Árfolyam </th>
+    <td mat-cell *matCellDef="let element"> {{element.value | number : '1.2-5'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="save">
+    <th mat-header-cell *matHeaderCellDef> Mentés </th>
+    <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="openDialog(element)">Mentés</button> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

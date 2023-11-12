@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import {MatTableModule} from '@angular/material/table';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -18,11 +19,12 @@ import { LocalstorageService } from '../../services/localstorage.service';
 @Component({
   selector: 'app-current-exchange-rate',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, ExchangeCurrencyModalComponent],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, ExchangeCurrencyModalComponent, MatTableModule],
   templateUrl: './current-exchange-rate.component.html',
   styleUrl: './current-exchange-rate.component.css'
 })
 export class CurrentExchangeRateComponent implements OnInit {
+  displayedColumns: string[] = ['currency', 'value', 'save'];
   currentExchangeRates: CurrentExchangeRate[] = [];
 
   constructor(private exchangeRateService: ExchangeRateService, public dialog: MatDialog, private localstorageService: LocalstorageService) {}

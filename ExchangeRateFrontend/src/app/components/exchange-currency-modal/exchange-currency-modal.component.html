@@ -3,10 +3,13 @@
       <h1>Currency converter form</h1>
       <form (ngSubmit)="onSubmit()" #exchangeForm="ngForm">
         <div class="form-group">
-          <label for="amount">Amount</label>
-          <input type="number" class="form-control" id="amount"
+          <label for="amount">Összeg (HUF)</label>
+          <input type="number"  
+                 class="form-control"
+                 id="amount"
                  required
-                 [(ngModel)]="model.amount" name="amount"
+                 [(ngModel)]="model.amount"
+                 name="amount"
                  #amount="ngModel">
           <div [hidden]="amount.valid || amount.pristine"
                class="alert alert-danger">

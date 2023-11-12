@@ -1,13 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CurrencyExchangeRequest } from '../../interfaces/currency-exchange-request';
 import { ExchangeRateService } from '../../services/exchange-rate.service';
+
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-exchange-currency-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogModule, ExchangeCurrencyModalComponent],
   templateUrl: './exchange-currency-modal.component.html',
   styleUrl: './exchange-currency-modal.component.css'
 })

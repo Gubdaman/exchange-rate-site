@@ -1,15 +1,18 @@
-<mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="data.username">
-</mat-form-field>
-
-<mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="data.password">
-</mat-form-field>
-
-<button mat-button (click)="login()">Login</button>
-
-<button mat-button (click)="register()">Register</button>
-
-<button mat-button (click)="logout()">Log out</button>
+<div>
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="data.username">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="data.password">
+    </mat-form-field>
+</div>
+<div>
+    <button mat-button (click)="login()">Login</button>
+    
+    <button mat-button (click)="register()">Register</button>
+    
+    <button mat-button (click)="logout()">Log out</button>
+</div>
