@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { UserData } from '../interfaces/user-data';
@@ -14,6 +14,9 @@ import { LoginResponse } from '../interfaces/login-response';
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  private usernameSource = new BehaviorSubject('Vendég');
+  currentUsername = this.usernameSource.asObservable();
 
   private exchangeRateUrl = 'https://localhost:7173/api/auth/';
 
@@ -42,11 +45,23 @@ export class AuthenticationService {
       );
   }
 
+  logout(): void {
+    this.localstorageService.set("token", "");
+    this.localstorageService.set("userId", "");
+    this.localstorageService.set("userName", "Vendég");
+    this.changeUsername("Vendég");
+  }
+
+  changeUsername(username: string) {
+    this.usernameSource.next(username)
+  }
+
   private saveUserDataToLocalstorage(token: string){
     this.jwtService.setToken(token);
     this.localstorageService.set("token", token);
     this.localstorageService.set("userId", this.jwtService.getId()!.toString());
     this.localstorageService.set("userName", this.jwtService.getUser()!.toString());
+    this.changeUsername(this.jwtService.getUser()!.toString());
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
